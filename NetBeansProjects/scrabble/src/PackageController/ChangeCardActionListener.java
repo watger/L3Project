@@ -17,18 +17,18 @@ import javax.swing.JPanel;
  * @author pardojeremie
  */
 public class ChangeCardActionListener implements ActionListener {
-    private final String str;
+    private final String cardStr;
     private JPanel cards;
     
-    public ChangeCardActionListener(JPanel cards,String str) {
+    public ChangeCardActionListener(JPanel cards,String cardStr) {
         super();
-        this.str = str;
+        this.cardStr = cardStr;
         this.cards = cards;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ((CardLayout)cards.getLayout()).show(cards, str);
+        ((CardLayout)cards.getLayout()).show(cards, cardStr);
     }
     
 }

@@ -24,7 +24,7 @@ public class RuleJPanel extends JPanel{
     public RuleJPanel(JPanel cards) {
         //JLabel
         super();
-        this.cards = cards;  
+        this.cards = cards;
         
         //set of the layout
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -48,11 +48,10 @@ public class RuleJPanel extends JPanel{
         //set of the JButton
         menuButton = new JButton("MENU");
         //set of the JButton action listener
-        menuButton.addActionListener(new ChangeCardActionListener(cards,"MenueJPanel"));
+        menuButton.addActionListener(new ChangeCardActionListener(cards,"MenuJPanel"));
         
         //add of the JTextArea and JButton to the JPanel
         this.add(new JScrollPane(ruleTextArea));
         this.add(menuButton);
-        this.add(new TrayJPanel());
     }
 }

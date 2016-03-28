@@ -6,9 +6,9 @@
 package PackageView;
 
 import PackageController.Resize;
+import PackageModel.Tray;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,26 +19,27 @@ import javax.swing.JPanel;
  */
 public class TrayJPanel extends JPanel {
     private JLabel jlabels[][] = new JLabel[15][15];
+    private Tray tray;
     
-    public TrayJPanel() {
+    public TrayJPanel(Tray tray) {
         super();
+        this.tray = tray;
 
         this.setLayout(new GridLayout(15,15));
-        this.setBackground(Color.LIGHT_GRAY);
-        ImageIcon icon = Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/a.png"),50,50);
+        this.setBackground(Color.BLACK);
         for(int i = 0;i < jlabels.length; i++)
             for(int j = 0;j < jlabels[i].length; j++) {
-                jlabels[i][j] = new JLabel(icon);
+                jlabels[i][j] = new JLabel(Resize.ImageResize(new ImageIcon("bin/image Scrabble/"+tray.GetFramesValues(i, j)+".png"),40,40));
                 this.add(jlabels[i][j]);
-        } 
-        
-        jlabels[8][7].setIcon( Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/i.png"),50,50));
-        jlabels[14][2].setIcon( Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/w.png"),50,50));
+            }
     }   
     
-    public void setIconJLabel(int indexX,int indexY,ImageIcon icon) {
+    public void UpdateIconJLabel(int indexX,int indexY) {
         try {
-        jlabels[indexX][indexY].setIcon(icon);
+            if(tray.GetFramesToken(indexX, indexY) == null)
+                jlabels[indexX][indexY].setIcon(Resize.ImageResize(new ImageIcon("bin/image Scrabble/"+tray.GetFramesValues(indexX, indexY)+".png"),40,40));
+            else 
+                jlabels[indexX][indexY].setIcon(Resize.ImageResize(new ImageIcon("bin/image Scrabble/"+tray.GetFramesToken(indexX, indexY).getCharacter()+".png"),40,40));
         } catch (Exception e) {}
     }
 }

@@ -4,15 +4,13 @@
  * and open the template in the editor.
  */
 package PackageModel;
-
-import PackageObserve.Observable;
 import java.util.ArrayList;
 
 /**
  *
  * @author pardojeremie
  */
-public class Easel implements Observable {
+public class Easel {
     private Token[] tableToken;
     
     public Easel() {

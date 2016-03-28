@@ -33,7 +33,7 @@ public class GameOptionJPanel extends JPanel{
         }
         
         menuButton = new JButton("MENU");
-        menuButton.addActionListener(new ChangeCardActionListener(cards,"MenueJPanel"));
+        menuButton.addActionListener(new ChangeCardActionListener(cards,"MenuJPanel"));
         gameStartButton = new JButton("START");
         gameStartButton.addActionListener(new ChangeCardActionListener(cards,"GameMainJPanel"));
         

@@ -26,10 +26,9 @@ public class EaselJPanel extends JPanel{
         //JLabel Constructor
         super();
         this.setLayout(new GridLayout(1,7));
-        this.setBackground(Color.LIGHT_GRAY);
-        ImageIcon icon = Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/new.png"),40,40);
+        this.setBackground(Color.BLACK);
         for(int i = 0;i < jlabels.length; i++){
-            jlabels[i] = new JLabel(icon);
+            jlabels[i] = new JLabel(Resize.ImageResize(new ImageIcon("bin/image Scrabble/0.png"),50,50));
             this.add(jlabels[i]);
         } 
     }   
@@ -42,7 +41,7 @@ public class EaselJPanel extends JPanel{
     
     public void Reset() {
         for(int i = 0;i < jlabels.length; i++){
-            jlabels[i].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/new.png"),40,40));
+            jlabels[i].setIcon(Resize.ImageResize(new ImageIcon("bin/image Scrabble/0.png"),50,50));
         } 
     }
 }

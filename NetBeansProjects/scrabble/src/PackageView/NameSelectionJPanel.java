@@ -24,7 +24,7 @@ public class NameSelectionJPanel extends JPanel {
     
         nameTextField = new JTextField("Player "+i);
         typeComboBox = new JComboBox();
-        typeComboBox.addItem("Player");
+        typeComboBox.addItem("Player      ");
         if(i>0) {
             typeComboBox.addItem("Computer");
             if(i>1)

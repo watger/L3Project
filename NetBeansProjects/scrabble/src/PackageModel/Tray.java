@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Tray { 
     private Frame[][] tableFrame = new Frame[15][15];
     
-    Tray(Frame[][] tableFrame) {
+    public Tray(Frame[][] tableFrame) {
         this.tableFrame = tableFrame;
     }
     
@@ -22,6 +22,18 @@ public class Tray {
         try {
             tableFrame[height][width].setToken(token); 
         }catch(Exception e) {}
+    }
+    
+    public Token GetFramesToken ( int height, int width) {
+        try {
+           return tableFrame[height][width].getToken(); 
+        }catch(Exception e) {return null;}
+    }
+    
+    public int GetFramesValues ( int height, int width) {
+        try {
+           return tableFrame[height][width].getValue(); 
+        }catch(Exception e) {return -1;}
     }
     
     public void setTokenFixedTrue () {

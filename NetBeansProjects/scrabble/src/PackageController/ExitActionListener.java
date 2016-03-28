@@ -20,7 +20,7 @@ public class ExitActionListener implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(JOptionPane.YES_OPTION == new JOptionPane().showConfirmDialog(null, " voulez vous quitter le jeux", "EXIT", JOptionPane.YES_NO_OPTION))
+        if(JOptionPane.YES_OPTION == new JOptionPane().showConfirmDialog(null, " voulez vous quitter le jeu", "EXIT", JOptionPane.YES_NO_OPTION))
         System.exit(0);
     }
 }

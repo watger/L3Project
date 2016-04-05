@@ -5,10 +5,11 @@
  */
 package PackageView;
 
-import PackageModel.Tray;
+import PackageController.*;
+import PackageModel.Party;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -19,14 +20,15 @@ import javax.swing.JPanel;
 public class GameMainJPanel extends JPanel{
     private JPanel northJPanel,eastJPanel,southJPanel,westJPanel;
     private JButton drawButton,endOfTurnButton,menuButton;
-    private ArrayList<String> str;
-    private Tray tray;
+    private List<String> str;
+    private ScoreJPanel scoreJPanel;
+    private Party party;
  
-    public GameMainJPanel(Tray tray) {
+    public GameMainJPanel(Party party,JPanel cards) {
         //JLabel Constructor
         super();
-        this.tray = tray;
         
+        this.party = party;
         this.setLayout(new BorderLayout());
         
         northJPanel = new JPanel();
@@ -38,13 +40,18 @@ public class GameMainJPanel extends JPanel{
         drawButton = new JButton("PIOCHER");
         endOfTurnButton = new JButton("FIN DU TOUR");
         menuButton = new JButton("MENU");
+        menuButton.addActionListener(new ChangeCardWithPopUpActionListener(cards,"MenuJPanel","test"));
         
-        str = new ArrayList<>();
-        str.add("chaine1");str.add("chaine2"); str.add("chaine3");str.add("chaine4");
+        scoreJPanel = new ScoreJPanel();
+        northJPanel.add(scoreJPanel);
         
-        northJPanel.add(new ScoreJPanel(str));
-        eastJPanel.add(new TrayJPanel(tray));
-        southJPanel.add(new EaselJPanel());
+        TrayJPanel trayJPanel = new TrayJPanel(this.party.getTray());
+        trayJPanel.addMouseListener(new MouseLayoutActionListener(trayJPanel,15,15));
+        eastJPanel.add(trayJPanel);
+        
+        EaselJPanel easelJPanel = new EaselJPanel();
+        easelJPanel.addMouseListener(new MouseLayoutActionListener(easelJPanel,1,7));
+        southJPanel.add(easelJPanel);
         westJPanel.add(drawButton);
         westJPanel.add(endOfTurnButton);
         westJPanel.add(menuButton);
@@ -55,7 +62,7 @@ public class GameMainJPanel extends JPanel{
         this.add(westJPanel, BorderLayout.WEST);
     }
     
-    //get ScoreJPanel
-    //get TrayJPanel
-    //get EaselJPAnel
+    public void NewTurn () {
+        scoreJPanel.NewScorePlayer(party.getListOfPlayer());
+    }
 }

@@ -29,7 +29,7 @@ public class TrayJPanel extends JPanel {
         this.setBackground(Color.BLACK);
         for(int i = 0;i < jlabels.length; i++)
             for(int j = 0;j < jlabels[i].length; j++) {
-                jlabels[i][j] = new JLabel(Resize.ImageResize(new ImageIcon("bin/image Scrabble/"+tray.GetFramesValues(i, j)+".png"),40,40));
+                jlabels[i][j] = new JLabel(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+tray.GetFramesValues(i, j)+".png"),40,40));
                 this.add(jlabels[i][j]);
             }
     }   
@@ -37,9 +37,9 @@ public class TrayJPanel extends JPanel {
     public void UpdateIconJLabel(int indexX,int indexY) {
         try {
             if(tray.GetFramesToken(indexX, indexY) == null)
-                jlabels[indexX][indexY].setIcon(Resize.ImageResize(new ImageIcon("bin/image Scrabble/"+tray.GetFramesValues(indexX, indexY)+".png"),40,40));
+                jlabels[indexX][indexY].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+tray.GetFramesValues(indexX, indexY)+".png"),40,40));
             else 
-                jlabels[indexX][indexY].setIcon(Resize.ImageResize(new ImageIcon("bin/image Scrabble/"+tray.GetFramesToken(indexX, indexY).getCharacter()+".png"),40,40));
+                jlabels[indexX][indexY].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+tray.GetFramesToken(indexX, indexY).getCharacter()+".png"),40,40));
         } catch (Exception e) {}
     }
 }

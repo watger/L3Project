@@ -5,6 +5,7 @@
  */
 package PackageController;
 
+import PackageView.GameMainJPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
@@ -29,6 +30,13 @@ public class ChangeCardActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ((CardLayout)cards.getLayout()).show(cards, cardStr);
+        if(cardStr == "GameMainJPanel")
+            for(int i = 0; i < cards.getComponentCount(); i++){
+                try{
+                GameMainJPanel t = (GameMainJPanel)cards.getComponent(i);
+                t.NewTurn();
+                }catch (Exception exp) {}
+            }
     }
     
 }

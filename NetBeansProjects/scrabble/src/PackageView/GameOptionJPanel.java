@@ -6,6 +6,8 @@
 package PackageView;
 
 import PackageController.ChangeCardActionListener;
+import PackageController.NewPartyActionListener;
+import PackageModel.Party;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,8 +21,7 @@ public class GameOptionJPanel extends JPanel{
     private JButton menuButton, gameStartButton;
     private NameSelectionJPanel tabOfNameSelectionJPanel[] = new NameSelectionJPanel [4];
     
-    public GameOptionJPanel(JPanel cards) {
-        //JLabel Constructor
+    public GameOptionJPanel(Party party,JPanel cards) {
         super();
         
         this.cards = cards;
@@ -36,6 +37,7 @@ public class GameOptionJPanel extends JPanel{
         menuButton.addActionListener(new ChangeCardActionListener(cards,"MenuJPanel"));
         gameStartButton = new JButton("START");
         gameStartButton.addActionListener(new ChangeCardActionListener(cards,"GameMainJPanel"));
+        gameStartButton.addActionListener(new NewPartyActionListener(this,party));
         
         jpanelBoutton = new JPanel();
         
@@ -43,8 +45,10 @@ public class GameOptionJPanel extends JPanel{
         jpanelBoutton.add( menuButton);
         jpanelBoutton.add( gameStartButton);
         
-        this.add(jpanelBoutton);
-        
-        
+        this.add(jpanelBoutton); 
+    }
+
+    public NameSelectionJPanel[] getTabOfNameSelectionJPanel() {
+        return tabOfNameSelectionJPanel;
     }
 }

@@ -6,6 +6,7 @@
 package PackageView;
 
 import PackageModel.Frame;
+import PackageModel.Party;
 import PackageModel.Tray;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
@@ -20,26 +21,7 @@ public class MainJFrame extends JFrame{
     
     public MainJFrame() {
         super();
-        
-        Frame[][] frameTab = {
-                 {new Frame(4),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(4),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(4)}
-                ,{new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0)}
-                ,{new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0)}
-                ,{new Frame(1),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(1)}
-                ,{new Frame(0),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(0)}
-                ,{new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0)}
-                ,{new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0)}
-                ,{new Frame(4),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(4)}
-                ,{new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0)}
-                ,{new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0)}
-                ,{new Frame(0),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(0)}
-                ,{new Frame(1),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(1)}
-                ,{new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0),new Frame(0)}
-                ,{new Frame(0),new Frame(3),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(2),new Frame(0),new Frame(0),new Frame(0),new Frame(3),new Frame(0)}
-                ,{new Frame(4),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(0),new Frame(4),new Frame(0),new Frame(0),new Frame(0),new Frame(1),new Frame(0),new Frame(0),new Frame(4)}
-                };
-        
-        Tray tray = new Tray(frameTab);
+        Party party = new Party();
         
         this.setTitle("Scrabble");
         //this.setLocationRelativeTo(null);
@@ -50,8 +32,8 @@ public class MainJFrame extends JFrame{
         cardsLayoutPanel = new JPanel(new CardLayout());
         cardsLayoutPanel.add(new MenuJPanel(cardsLayoutPanel),"MenuJPanel");
         cardsLayoutPanel.add(new RuleJPanel(cardsLayoutPanel),"RuleJPanel");
-        cardsLayoutPanel.add(new GameOptionJPanel(cardsLayoutPanel),"GameOptionJPanel");
-        cardsLayoutPanel.add(new GameMainJPanel(tray),"GameMainJPanel");
+        cardsLayoutPanel.add(new GameOptionJPanel(party,cardsLayoutPanel),"GameOptionJPanel");
+        cardsLayoutPanel.add(new GameMainJPanel(party,cardsLayoutPanel),"GameMainJPanel");
         this.add(cardsLayoutPanel);
   }
     

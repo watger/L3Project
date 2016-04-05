@@ -12,9 +12,9 @@ import PackageModel.Easel;
  * @author pardojeremie
  */
 public class Human extends Player{
-
-    public Human(int id, String name, Easel easel) {
-        super(id, name, easel);
+    
+    public Human(int id, String name) {
+        super(id, name, new Easel());
     }
 
     @Override

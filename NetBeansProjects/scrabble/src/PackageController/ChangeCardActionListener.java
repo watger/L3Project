@@ -35,6 +35,7 @@ public class ChangeCardActionListener implements ActionListener {
                 try{
                 GameMainJPanel t = (GameMainJPanel)cards.getComponent(i);
                 t.NewTurn();
+                t.getDrawButton().setEnabled(true);
                 }catch (Exception exp) {}
             }
     }

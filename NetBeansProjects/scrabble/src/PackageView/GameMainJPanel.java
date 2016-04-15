@@ -23,7 +23,9 @@ public class GameMainJPanel extends JPanel{
     private List<String> str;
     private ScoreJPanel scoreJPanel;
     private Party party;
- 
+    private EaselJPanel easelJPanel;
+    private  TrayJPanel trayJPanel;
+    
     public GameMainJPanel(Party party,JPanel cards) {
         //JLabel Constructor
         super();
@@ -38,6 +40,7 @@ public class GameMainJPanel extends JPanel{
         
         
         drawButton = new JButton("PIOCHER");
+        drawButton.addActionListener(new DrawButtonActionListener(party));
         endOfTurnButton = new JButton("FIN DU TOUR");
         menuButton = new JButton("MENU");
         menuButton.addActionListener(new ChangeCardWithPopUpActionListener(cards,"MenuJPanel","test"));
@@ -45,12 +48,12 @@ public class GameMainJPanel extends JPanel{
         scoreJPanel = new ScoreJPanel();
         northJPanel.add(scoreJPanel);
         
-        TrayJPanel trayJPanel = new TrayJPanel(this.party.getTray());
-        trayJPanel.addMouseListener(new MouseLayoutActionListener(trayJPanel,15,15));
+        trayJPanel = new TrayJPanel(this.party.getTray());
+        trayJPanel.addMouseListener(new MouseLayoutActionListenerTray(party));
         eastJPanel.add(trayJPanel);
         
-        EaselJPanel easelJPanel = new EaselJPanel();
-        easelJPanel.addMouseListener(new MouseLayoutActionListener(easelJPanel,1,7));
+        easelJPanel = new EaselJPanel();
+        easelJPanel.addMouseListener(new MouseLayoutActionListenerEasel(party));
         southJPanel.add(easelJPanel);
         westJPanel.add(drawButton);
         westJPanel.add(endOfTurnButton);
@@ -64,5 +67,32 @@ public class GameMainJPanel extends JPanel{
     
     public void NewTurn () {
         scoreJPanel.NewScorePlayer(party.getListOfPlayer());
+        easelJPanel.SetAllIconJLabel(party.getPlayerActual().getEasel());
+        party.getTray().SetAllTokenToNull();
+        trayJPanel.UpdateIconJLabel();
+    }
+
+    public JButton getDrawButton() {
+        return drawButton;
+    }
+
+    public JButton getEndOfTurnButton() {
+        return endOfTurnButton;
+    }
+
+    public JButton getMenuButton() {
+        return menuButton;
+    }
+
+    public ScoreJPanel getScoreJPanel() {
+        return scoreJPanel;
+    }
+
+    public EaselJPanel getEaselJPanel() {
+        return easelJPanel;
+    }
+
+    public TrayJPanel getTrayJPanel() {
+        return trayJPanel;
     }
 }

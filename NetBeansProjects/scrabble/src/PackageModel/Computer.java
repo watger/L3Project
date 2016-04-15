@@ -11,8 +11,8 @@ package PackageModel;
  */
 public class Computer extends Player{
 
-    public Computer(int id, String name) {
-        super(id, name,new Easel());
+    public Computer(int id, String name,Sackcloth sackcloth) {
+        super(id, name,sackcloth);
     }
 
     @Override

@@ -13,16 +13,35 @@ package PackageModel;
 public abstract class Player {
     private final int id;
     private int score;
+    private Boolean draw,play; 
     private String name;
     private Easel easel;
     private Token select;
     
-    public Player(int id,String name,Easel easel) {
+    public Player(int id,String name,Sackcloth sackcloth) {
         this.id = id;
         this.name = name;
-        this.easel = new Easel(easel);
+        this.easel = new Easel(sackcloth);
+        draw = false;
+        play = false;
         score = 0;
         select = null;
+    }
+
+    public Boolean getDraw() {
+        return draw;
+    }
+
+    public void setDraw(Boolean draw) {
+        this.draw = draw;
+    }
+
+    public Boolean getPlay() {
+        return play;
+    }
+
+    public void setPlay(Boolean play) {
+        this.play = play;
     }
 
     public int getScore() {

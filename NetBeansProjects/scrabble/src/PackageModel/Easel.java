@@ -12,9 +12,14 @@ import java.util.ArrayList;
  */
 public class Easel {
     private Token[] tableToken;
+    private Sackcloth sackcloth;
     
-    public Easel() {
+    public Easel(Sackcloth sackcloth) {
         tableToken = new Token[7];
+        this.sackcloth = sackcloth;
+        for(int i = 0; i < tableToken.length; i++) {
+            tableToken[i] = this.sackcloth.DrawToken();
+        }
     }
     
     public Easel(Easel easel) {
@@ -26,7 +31,8 @@ public class Easel {
         
         for(int i = 0; i < tableToken.length; i++) {
             try {
-                if(!tableToken[i].isFixed()) {
+                if(tableToken[i].isSelect()) {
+                    tableToken[i].setSelect(false);
                     temporaryListToken.add(tableToken[i]);
                     tableToken[i] = sackcloth.DrawToken();
                 }
@@ -35,17 +41,27 @@ public class Easel {
         for(int i = 0; i < temporaryListToken.size(); i++)
             sackcloth.AddToken(temporaryListToken.get(i));
     }
-    
-    public boolean PoseToken(Tray tray) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public void setToken(int i, Token token) {
+        tableToken[i] = token;
     }
     
-    public void SelectToken(/*Mouse mouse?? or Token token??*/) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Token GetToken(int i) {
+        return tableToken[i];
     }
     
-    public void DeselectAllToken(/*Mouse mouse?? or Token token??*/) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void SelectToken(int i) {
+        tableToken[i].setSelect(true);
+    }
+    
+    public void DeselectAllToken() {
+        for(int i = 0; i < tableToken.length; i++)
+            if(tableToken[i] != null)
+                tableToken[i].setSelect(false);
+    }
+    
+    public int getEasellenght() {
+        return tableToken.length;
     }
 
 }

@@ -17,11 +17,15 @@ import javax.swing.JPanel;
  * @author pardojeremie
  */
 public class MainJFrame extends JFrame{
-    JPanel cardsLayoutPanel;
-    
+    private JPanel cardsLayoutPanel;
+    private MenuJPanel menuJPanel;
+    private RuleJPanel ruleJPanel;
+    private GameOptionJPanel gameOptionJPanel;
+    private GameMainJPanel gameMainJPanel;
+
     public MainJFrame() {
         super();
-        Party party = new Party();
+        Party party = new Party(this);
         
         this.setTitle("Scrabble");
         //this.setLocationRelativeTo(null);
@@ -30,11 +34,33 @@ public class MainJFrame extends JFrame{
         this.setLocationRelativeTo(null);
         //this.setLayout( new FlowLayout(FlowLayout.CENTER));
         cardsLayoutPanel = new JPanel(new CardLayout());
-        cardsLayoutPanel.add(new MenuJPanel(cardsLayoutPanel),"MenuJPanel");
-        cardsLayoutPanel.add(new RuleJPanel(cardsLayoutPanel),"RuleJPanel");
-        cardsLayoutPanel.add(new GameOptionJPanel(party,cardsLayoutPanel),"GameOptionJPanel");
-        cardsLayoutPanel.add(new GameMainJPanel(party,cardsLayoutPanel),"GameMainJPanel");
+        
+        menuJPanel = new MenuJPanel(cardsLayoutPanel);
+        ruleJPanel = new RuleJPanel(cardsLayoutPanel);
+        gameOptionJPanel = new GameOptionJPanel(party,cardsLayoutPanel);
+        gameMainJPanel = new GameMainJPanel(party,cardsLayoutPanel);
+        
+        cardsLayoutPanel.add(menuJPanel,"MenuJPanel");
+        cardsLayoutPanel.add(ruleJPanel,"RuleJPanel");
+        cardsLayoutPanel.add(gameOptionJPanel,"GameOptionJPanel");
+        cardsLayoutPanel.add(gameMainJPanel,"GameMainJPanel");
+        
         this.add(cardsLayoutPanel);
   }
     
+     public MenuJPanel getMenuJPanel() {
+        return menuJPanel;
+    }
+
+    public RuleJPanel getRuleJPanel() {
+        return ruleJPanel;
+    }
+
+    public GameOptionJPanel getGameOptionJPanel() {
+        return gameOptionJPanel;
+    }
+
+    public GameMainJPanel getGameMainJPanel() {
+        return gameMainJPanel;
+    }  
 }

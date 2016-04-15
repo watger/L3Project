@@ -12,26 +12,26 @@ package PackageModel;
 public class Token {
     private final int value;
     private final char character;
-    private boolean fixed;
+    private boolean select;
 
     public Token(int value, char character) {
         this.value = value;
         this.character = character;
-        fixed = true;
+        select = false;
     }
     
     public Token(Token token) {
         value = token.value;
         character = token.character;
-        fixed = token.fixed;
+        select = token.select;
     }
     
-    public boolean isFixed() {
-        return fixed;
+    public boolean isSelect() {
+        return select;
     }
 
-    public void setFixed(boolean fixed) {
-        this.fixed = fixed;
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 
     public int getValue() {

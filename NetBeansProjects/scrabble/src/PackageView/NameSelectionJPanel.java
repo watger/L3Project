@@ -26,7 +26,7 @@ public class NameSelectionJPanel extends JPanel {
         typeComboBox = new JComboBox();
         typeComboBox.addItem("Player      ");
         if(i>0) {
-            typeComboBox.addItem("Computer");
+            //typeComboBox.addItem("Computer");
             if(i>1)
                 typeComboBox.addItem("Null");
         }

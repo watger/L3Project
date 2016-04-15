@@ -18,10 +18,17 @@ public class Tray {
         this.tableFrame = tableFrame;
     }
     
-    public void setTokenFrames (Token token, int height, int width) {
-        try {
-            tableFrame[height][width].setToken(token); 
-        }catch(Exception e) {}
+    public Boolean setTokenFrames (Party party, int i, int j) {
+        if (tableFrame[i][j].getToken() == null) {
+            for(int n = 0; n < party.getPlayerActual().getEasel().getEasellenght(); n++)
+                if (party.getPlayerActual().getEasel().GetToken(n) != null) 
+                    if (party.getPlayerActual().getEasel().GetToken(n).isSelect()) {
+                        tableFrame[i][j].setToken(party.getPlayerActual().getEasel().GetToken(n));
+                        party.getPlayerActual().getEasel().setToken(n,null);
+                        return true;
+                    }
+        }
+        return false;
     }
     
     public Token GetFramesToken ( int height, int width) {
@@ -31,20 +38,29 @@ public class Tray {
     }
     
     public int GetFramesValues ( int height, int width) {
-        try {
            return tableFrame[height][width].getValue(); 
-        }catch(Exception e) {return -1;}
     }
     
-    public void setTokenFixedTrue () {
-        for (Frame[] tableFrame1 : tableFrame) {
-            for (Frame tableFrame11 : tableFrame1) {
-                if (tableFrame11.getToken() != null) {
-                    tableFrame11.getToken().setFixed(true);
-                }
-            }
-        }
+    public void DeselectAllToken () {
+        for (Frame[] tableFrame1 : tableFrame)
+            for (Frame tableFrame11 : tableFrame1)
+                if (tableFrame11.getToken() != null)
+                    tableFrame11.getToken().setSelect(false);
     }
+    
+    public void SetAllTokenToNull () {
+        for (Frame[] tableFrame1 : tableFrame)
+            for (Frame tableFrame11 : tableFrame1)
+                tableFrame11.setToken(null);
+    }
+    
+    public int GetTrayWidth() {
+        return tableFrame[0].length;
+    } 
+    
+    public int GetTrayHeight() {
+        return tableFrame.length;
+    } 
     
    //get width and height
 

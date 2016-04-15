@@ -6,6 +6,7 @@
 package PackageView;
 
 import PackageController.Resize;
+import PackageModel.Easel;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.IOException;
@@ -33,10 +34,14 @@ public class EaselJPanel extends JPanel{
         } 
     }   
     
-    public void SetIconJLabel(int index,ImageIcon icon) {
-        try {
-        jlabels[index].setIcon(icon);
-        } catch (Exception e) {}
+    public void SetAllIconJLabel(Easel easel) {
+        for(int i = 0; i < easel.getEasellenght();i++)
+            if(easel.GetToken(i) == null)
+                jlabels[i].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/0.png"),50,50));
+            else if(!easel.GetToken(i).isSelect())
+                jlabels[i].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+easel.GetToken(i).getCharacter()+".png"),50,50));
+            else
+                jlabels[i].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+easel.GetToken(i).getCharacter()+"_.png"),50,50));
     }
     
     public void Reset() {

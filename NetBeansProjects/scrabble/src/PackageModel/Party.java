@@ -126,16 +126,20 @@ public class Party {
     }
     
     public void NextPlayer() {
+        //tray.GetScoreWords();
+        
         listOfPlayer.get(playerActual).getEasel().ChangeToken(sackcloth);
         listOfPlayer.get(playerActual).setDraw(false);
         listOfPlayer.get(playerActual).setPlay(false);
-        
         if(playerActual< listOfPlayer.size()-1)
             playerActual++;
         else
             playerActual = 0;
         tray.DeselectAllToken();
         tray.ResetXYMaxMin();
+        
+        // fenetre oui non 
+        
         mainJFrame.getGameMainJPanel().getTrayJPanel().UpdateIconJLabel();
         mainJFrame.getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(listOfPlayer.get(playerActual).getEasel());
     }

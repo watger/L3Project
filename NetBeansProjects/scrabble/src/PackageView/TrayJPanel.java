@@ -35,11 +35,14 @@ public class TrayJPanel extends JPanel {
     }   
     
     public void UpdateIconJLabel() {
+        ImageIcon n =  Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/a.png"),40,40);
         for(int i = 0; i < tray.GetTrayHeight();i++)
             for(int j = 0; j < tray.GetTrayWidth(); j++)
                 if(tray.GetFramesToken(i, j) == null)
                     jlabels[i][j].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+tray.GetFramesValues(i, j)+".png"),40,40));
-                else 
+                else if(tray.GetFramesToken(i, j).isSelect())
+                    jlabels[i][j].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+tray.GetFramesToken(i, j).getCharacter()+"_.png"),40,40));
+                else
                     jlabels[i][j].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/"+tray.GetFramesToken(i, j).getCharacter()+".png"),40,40));
     }
 }

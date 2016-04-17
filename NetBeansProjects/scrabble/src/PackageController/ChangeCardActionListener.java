@@ -32,11 +32,10 @@ public class ChangeCardActionListener implements ActionListener {
         ((CardLayout)cards.getLayout()).show(cards, cardStr);
         if(cardStr == "GameMainJPanel")
             for(int i = 0; i < cards.getComponentCount(); i++){
-                try{
-                GameMainJPanel t = (GameMainJPanel)cards.getComponent(i);
-                t.NewTurn();
-                t.getDrawButton().setEnabled(true);
-                }catch (Exception exp) {}
+                if(cards.getComponent(i) instanceof GameMainJPanel){
+                    ((GameMainJPanel)cards.getComponent(i)).NewTurn();
+                    ((GameMainJPanel)cards.getComponent(i)).getDrawButton().setEnabled(true);
+                }
             }
     }
     

@@ -13,22 +13,111 @@ import java.util.ArrayList;
  */
 public class Tray { 
     private Frame[][] tableFrame = new Frame[15][15];
+    private int xmax,xmin,ymax,ymin;
     
     public Tray(Frame[][] tableFrame) {
         this.tableFrame = tableFrame;
+        ResetXYMaxMin();
     }
     
     public Boolean setTokenFrames (Party party, int i, int j) {
-        if (tableFrame[i][j].getToken() == null) {
+        if (setTokenIsPossible(party,i,j)) {
             for(int n = 0; n < party.getPlayerActual().getEasel().getEasellenght(); n++)
-                if (party.getPlayerActual().getEasel().GetToken(n) != null) 
-                    if (party.getPlayerActual().getEasel().GetToken(n).isSelect()) {
-                        tableFrame[i][j].setToken(party.getPlayerActual().getEasel().GetToken(n));
-                        party.getPlayerActual().getEasel().setToken(n,null);
-                        return true;
-                    }
+                if (party.getPlayerActual().getEasel().GetToken(n) != null && party.getPlayerActual().getEasel().GetToken(n).isSelect()) 
+                {
+                    tableFrame[i][j].setToken(party.getPlayerActual().getEasel().GetToken(n));
+                    party.getPlayerActual().getEasel().setToken(n,null);
+                    UpdateFramesFree(i,j);
+  
+                    return true;
+                }
         }
         return false;
+    }
+    
+    public Boolean setTokenIsPossible(Party party, int i, int j) {
+        if (tableFrame[i][j].getToken() == null && tableFrame[i][j].isFree() && ((xmin == i && ymin == j)||(xmax == i && ymax == j)||(xmin == xmax && ymin == ymax)))
+            return true;
+        return false;
+    }
+    
+    public void UpdateFramesFree( int i, int j) {
+        tableFrame[i+1][j].setFree(true);
+        tableFrame[i-1][j].setFree(true);
+        tableFrame[i][j+1].setFree(true);
+        tableFrame[i][j-1].setFree(true);
+        UpdateXYMaxMin(i,j);
+    }
+    
+    public void UpdateXYMaxMin(int i, int j) {
+        if (xmin == -1){
+            xmin = i;
+            xmax = i;
+            ymin = j;
+            ymax = j;
+        }
+        else if(xmin == xmax && ymin == ymax) {
+            if(xmin == i)
+            {
+                if(ymax < j) 
+                {
+                    ymax = j + 1;
+                    ymin -= 1;
+                }
+                else if(ymax > j) 
+                {
+                    ymin = j - 1;
+                    ymax += 1;
+                }
+            }
+            else if(ymin == j)
+            {
+                if(xmax < i) 
+                {
+                    xmax = i + 1;
+                    xmin -= 1;
+                }
+                else if(xmax > i) 
+                {
+                    xmin = i - 1;
+                    xmax += 1;
+                }
+            }
+        }
+        else {
+            if(xmin == xmax)
+            {
+                if(ymax == j) 
+                    ymax = j + 1;
+                else if(ymin == j) 
+                    ymin = j - 1;
+                
+                //if(tableFrame[xmin][ymax] != null)
+                  //  UpdateXYMaxMin(xmin,ymax);
+                //if(tableFrame[xmin][ymin] != null)
+                  //  UpdateXYMaxMin(xmin,ymin);
+            }
+            else if(ymin == ymax)
+            {
+                if(xmax == i) 
+                    xmax = i + 1;
+                else if(xmin == i) 
+                    xmin = i - 1;
+                
+                //if(tableFrame[xmin][ymin] != null)
+                  //  UpdateXYMaxMin(xmin,ymin);
+                //if(tableFrame[xmax][ymin] != null)
+                  //  UpdateXYMaxMin(xmax,ymin);
+            }
+        }
+        System.out.println("xmax:"+xmax+" xmin:"+xmin+" ymax:"+ymax+" ymin:"+ymin);
+    }
+    
+    public void ResetXYMaxMin() {
+        xmax = -1;
+        xmin = -1;
+        ymax = -1;
+        ymin = -1;
     }
     
     public Token GetFramesToken ( int height, int width) {
@@ -46,6 +135,10 @@ public class Tray {
             for (Frame tableFrame11 : tableFrame1)
                 if (tableFrame11.getToken() != null)
                     tableFrame11.getToken().setSelect(false);
+    }
+
+    public Frame[][] getTableFrame() {
+        return tableFrame;
     }
     
     public void SetAllTokenToNull () {

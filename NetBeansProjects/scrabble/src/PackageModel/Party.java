@@ -16,7 +16,7 @@ import java.util.List;
 public class Party {
     private MainJFrame mainJFrame;
     private List<Player> listOfPlayer;
-    private int id,playerActual,tour;
+    private int id,playerActual;
     private Tray tray;
     private Frame[][] frameTab;
     private Sackcloth sackcloth;
@@ -106,12 +106,12 @@ public class Party {
     }
     
     public void NewParty() {
-        this.listOfPlayer = new ArrayList<Player>();
-        this.id = 0;
-        this.tray = new Tray(frameTab);
-        this.sackcloth = new Sackcloth();
-        this.playerActual = 0; 
-        this.tour = 0;
+        listOfPlayer = new ArrayList<Player>();
+        id = 0;
+        tray = new Tray(frameTab);
+        tray.getTableFrame()[tray.GetTrayWidth()/2][tray.GetTrayHeight()/2].setFree(true);
+        sackcloth = new Sackcloth();
+        playerActual = 0; 
     }
 
     
@@ -123,7 +123,22 @@ public class Party {
                 listOfPlayer.add(new Human(id,playerName,sackcloth));
             id++;
         }       
-    }    
+    }
+    
+    public void NextPlayer() {
+        listOfPlayer.get(playerActual).getEasel().ChangeToken(sackcloth);
+        listOfPlayer.get(playerActual).setDraw(false);
+        listOfPlayer.get(playerActual).setPlay(false);
+        
+        if(playerActual< listOfPlayer.size()-1)
+            playerActual++;
+        else
+            playerActual = 0;
+        tray.DeselectAllToken();
+        tray.ResetXYMaxMin();
+        mainJFrame.getGameMainJPanel().getTrayJPanel().UpdateIconJLabel();
+        mainJFrame.getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(listOfPlayer.get(playerActual).getEasel());
+    }
 
     public MainJFrame getMainJFrame() {
         return mainJFrame;

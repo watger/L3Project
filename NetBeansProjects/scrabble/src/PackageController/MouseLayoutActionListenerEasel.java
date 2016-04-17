@@ -23,15 +23,17 @@ public class MouseLayoutActionListenerEasel  implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         int i = e.getX()*party.getPlayerActual().getEasel().getEasellenght()/party.getMainJFrame().getGameMainJPanel().getEaselJPanel().getWidth();
-        if(party.getPlayerActual().getEasel().GetToken(i).isSelect())
-                party.getPlayerActual().getEasel().GetToken(i).setSelect(false);
-        else if (!party.getPlayerActual().getDraw()) {
-            party.getPlayerActual().getEasel().DeselectAllToken();
-            party.getPlayerActual().getEasel().GetToken(i).setSelect(true);
+        if (party.getPlayerActual().getEasel().GetToken(i) != null) {
+            if( party.getPlayerActual().getEasel().GetToken(i).isSelect())
+                    party.getPlayerActual().getEasel().GetToken(i).setSelect(false);
+            else if (!party.getPlayerActual().getDraw()) {
+                party.getPlayerActual().getEasel().DeselectAllToken();
+                party.getPlayerActual().getEasel().GetToken(i).setSelect(true);
+            }
+            else
+                party.getPlayerActual().getEasel().GetToken(i).setSelect(true);
+            party.getMainJFrame().getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(party.getPlayerActual().getEasel());
         }
-        else
-            party.getPlayerActual().getEasel().GetToken(i).setSelect(true);
-        party.getMainJFrame().getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(party.getPlayerActual().getEasel());
     }
 
     @Override

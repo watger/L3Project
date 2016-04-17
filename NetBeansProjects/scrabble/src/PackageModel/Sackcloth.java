@@ -21,6 +21,7 @@ public class Sackcloth {
         listToken.add(new Token(10,'k'));
         listToken.add(new Token(8,'q'));
         listToken.add(new Token(10,'w'));
+        listToken.add(new Token(10,'x'));
         listToken.add(new Token(10,'y'));
         listToken.add(new Token(10,'z'));
         for(int i = 0; i < 2; i++) {
@@ -59,10 +60,10 @@ public class Sackcloth {
         listToken.add(token);
     }
     
-    public void AddsTokens(int time ,Token token) {
-        for(int i = 0; i < time; i++)
-            listToken.add(new Token(token));
-    }
+    //public void AddsTokens(int time ,Token token) {
+      //  for(int i = 0; i < time; i++)
+        //    listToken.add(new Token(token));
+    //}
     
     public Token DrawToken() {
         int index = (int) (Math.random() * listToken.size());

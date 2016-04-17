@@ -11,11 +11,13 @@ package PackageModel;
  */
 public class Frame {
     private final int value;
+    private boolean free;
     private Token token;
     
     public Frame(int value) {
         this.value = value;
         token = null;
+        free = false;
     }
 
     public Token getToken() {
@@ -29,5 +31,12 @@ public class Frame {
     public int getValue() {
         return value;
     }
-    
+
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
 }

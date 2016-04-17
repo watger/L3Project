@@ -23,12 +23,10 @@ public class MouseLayoutActionListenerTray implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (!party.getPlayerActual().getDraw())
-            for (int n = 0; n < party.getPlayerActual().getEasel().getEasellenght(); n++)
-                    if(party.getTray().setTokenFrames(party,e.getY()*party.getTray().GetTrayHeight()/party.getMainJFrame().getGameMainJPanel().getTrayJPanel().getHeight(), e.getX()*party.getTray().GetTrayWidth()/party.getMainJFrame().getGameMainJPanel().getTrayJPanel().getWidth())) {
-                        party.getPlayerActual().setPlay(true); 
-                        party.getMainJFrame().getGameMainJPanel().getDrawButton().setEnabled(false);
-                    }
+        if (!party.getPlayerActual().getDraw() && party.getTray().setTokenFrames(party,e.getY()*party.getTray().GetTrayHeight()/party.getMainJFrame().getGameMainJPanel().getTrayJPanel().getHeight(), e.getX()*party.getTray().GetTrayWidth()/party.getMainJFrame().getGameMainJPanel().getTrayJPanel().getWidth())) {
+            party.getPlayerActual().setPlay(true); 
+            party.getMainJFrame().getGameMainJPanel().getDrawButton().setEnabled(false);
+        }
         party.getMainJFrame().getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(party.getPlayerActual().getEasel());
         party.getMainJFrame().getGameMainJPanel().getTrayJPanel().UpdateIconJLabel();
     }

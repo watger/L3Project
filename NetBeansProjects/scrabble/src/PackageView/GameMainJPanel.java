@@ -42,6 +42,7 @@ public class GameMainJPanel extends JPanel{
         drawButton = new JButton("PIOCHER");
         drawButton.addActionListener(new DrawButtonActionListener(party));
         endOfTurnButton = new JButton("FIN DU TOUR");
+        endOfTurnButton.addActionListener(new EndOfTurnButtonActionListener(party));
         menuButton = new JButton("MENU");
         menuButton.addActionListener(new ChangeCardWithPopUpActionListener(cards,"MenuJPanel","test"));
         

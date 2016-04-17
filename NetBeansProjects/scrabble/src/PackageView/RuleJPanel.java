@@ -6,6 +6,7 @@
 package PackageView;
 
 import PackageController.ChangeCardActionListener;
+import PackageModel.Party;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -19,12 +20,12 @@ import javax.swing.JScrollPane;
 public class RuleJPanel extends JPanel{
     private JTextArea ruleTextArea;
     private JButton menuButton;
-    private JPanel cards;
+    private Party party;
     
-    public RuleJPanel(JPanel cards) {
+    public RuleJPanel(Party party) {
         //JLabel
         super();
-        this.cards = cards;
+        this.party = party;
         
         //set of the layout
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -48,7 +49,7 @@ public class RuleJPanel extends JPanel{
         //set of the JButton
         menuButton = new JButton("MENU");
         //set of the JButton action listener
-        menuButton.addActionListener(new ChangeCardActionListener(cards,"MenuJPanel"));
+        menuButton.addActionListener(new ChangeCardActionListener(party.getMainJFrame(),"MenuJPanel"));
         
         //add of the JTextArea and JButton to the JPanel
         this.add(new JScrollPane(ruleTextArea));

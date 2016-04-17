@@ -6,6 +6,7 @@
 package PackageView;
 
 import PackageController.*;
+import PackageModel.Party;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,13 +17,13 @@ import javax.swing.JPanel;
  */
 public class MenuJPanel extends JPanel{
     private JButton startButton, ruleButton, exitButton;
-    private JPanel cards;
+    private Party party;
     
-    public MenuJPanel(JPanel cards) {
+    public MenuJPanel(Party party) {
         //JLabel Constructor
         super();
         
-        this.cards = cards;
+        this.party = party;
         //set of the layout
          this.setLayout(new  GridLayout(3, 1));
         
@@ -32,8 +33,8 @@ public class MenuJPanel extends JPanel{
         exitButton = new JButton("EXIT");
         
         //set of the JButtons action listener
-        startButton.addActionListener(new ChangeCardActionListener(cards,"GameOptionJPanel"));
-        ruleButton.addActionListener(new ChangeCardActionListener(cards,"RuleJPanel"));
+        startButton.addActionListener(new ChangeCardActionListener(party.getMainJFrame(),"GameOptionJPanel"));
+        ruleButton.addActionListener(new ChangeCardActionListener(party.getMainJFrame(),"RuleJPanel"));
         exitButton.addActionListener(new ExitActionListener());
         
         //add of the JButton in the JPanel

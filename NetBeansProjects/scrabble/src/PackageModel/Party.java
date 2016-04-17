@@ -138,12 +138,18 @@ public class Party {
         tray.DeselectAllToken();
         tray.ResetXYMaxMin();
         
-        // fenetre oui non 
         
         mainJFrame.getGameMainJPanel().getTrayJPanel().UpdateIconJLabel();
         mainJFrame.getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(listOfPlayer.get(playerActual).getEasel());
     }
 
+    public String getNextPlayerName() {
+         if(playerActual< listOfPlayer.size()-1)
+            return listOfPlayer.get(playerActual +1).getName();
+        else
+            return listOfPlayer.get(0).getName();
+    }
+    
     public MainJFrame getMainJFrame() {
         return mainJFrame;
     }

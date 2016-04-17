@@ -5,6 +5,7 @@
  */
 package PackageController;
 
+import PackageView.MainJFrame;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,18 +18,20 @@ import javax.swing.JPanel;
  */
 public class ChangeCardWithPopUpActionListener implements ActionListener {
     private final String cardStr,message;
-    private JPanel cards;
+    private MainJFrame mainJFrame;
     
-    public ChangeCardWithPopUpActionListener(JPanel cards,String cardStr,String message) {
+    public ChangeCardWithPopUpActionListener(MainJFrame mainJFrame,String cardStr,String message) {
         super();
         this.cardStr = cardStr;
         this.message = message;
-        this.cards = cards;
+        this.mainJFrame = mainJFrame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(JOptionPane.YES_OPTION == new JOptionPane().showConfirmDialog(null, message, "EXIT", JOptionPane.YES_NO_OPTION))
-            ((CardLayout)cards.getLayout()).show(cards, cardStr);
+            ((CardLayout)mainJFrame.getCardsLayoutPanel().getLayout()).show(mainJFrame.getCardsLayoutPanel(), cardStr);
+        if(!cardStr.equals("GameMainJPanel"))
+            mainJFrame.setSize(200,250);
     }
 }

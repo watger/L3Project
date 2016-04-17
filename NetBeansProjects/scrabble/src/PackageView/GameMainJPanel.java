@@ -26,7 +26,7 @@ public class GameMainJPanel extends JPanel{
     private EaselJPanel easelJPanel;
     private  TrayJPanel trayJPanel;
     
-    public GameMainJPanel(Party party,JPanel cards) {
+    public GameMainJPanel(Party party) {
         //JLabel Constructor
         super();
         
@@ -44,7 +44,7 @@ public class GameMainJPanel extends JPanel{
         endOfTurnButton = new JButton("FIN DU TOUR");
         endOfTurnButton.addActionListener(new EndOfTurnButtonActionListener(party));
         menuButton = new JButton("MENU");
-        menuButton.addActionListener(new ChangeCardWithPopUpActionListener(cards,"MenuJPanel","test"));
+        menuButton.addActionListener(new ChangeCardWithPopUpActionListener(party.getMainJFrame(),"MenuJPanel","test"));
         
         scoreJPanel = new ScoreJPanel();
         northJPanel.add(scoreJPanel);

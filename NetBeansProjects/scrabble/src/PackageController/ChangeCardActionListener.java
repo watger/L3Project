@@ -6,10 +6,10 @@
 package PackageController;
 
 import PackageView.GameMainJPanel;
+import PackageView.MainJFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
-import javax.swing.JPanel;
 
 
 
@@ -19,24 +19,28 @@ import javax.swing.JPanel;
  */
 public class ChangeCardActionListener implements ActionListener {
     private final String cardStr;
-    private JPanel cards;
+    private MainJFrame mainJFrame;
     
-    public ChangeCardActionListener(JPanel cards,String cardStr) {
+    public ChangeCardActionListener(MainJFrame mainJFrame,String cardStr) {
         super();
         this.cardStr = cardStr;
-        this.cards = cards;
+        this.mainJFrame = mainJFrame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ((CardLayout)cards.getLayout()).show(cards, cardStr);
-        if(cardStr == "GameMainJPanel")
-            for(int i = 0; i < cards.getComponentCount(); i++){
-                if(cards.getComponent(i) instanceof GameMainJPanel){
-                    ((GameMainJPanel)cards.getComponent(i)).NewTurn();
-                    ((GameMainJPanel)cards.getComponent(i)).getDrawButton().setEnabled(true);
+        ((CardLayout)mainJFrame.getCardsLayoutPanel().getLayout()).show(mainJFrame.getCardsLayoutPanel(), cardStr);
+        if(cardStr.equals("GameMainJPanel")) {
+            mainJFrame.setSize(740,730);
+            for(int i = 0; i < mainJFrame.getCardsLayoutPanel().getComponentCount(); i++){
+                if(mainJFrame.getCardsLayoutPanel().getComponent(i) instanceof GameMainJPanel){
+                    ((GameMainJPanel)mainJFrame.getCardsLayoutPanel().getComponent(i)).NewTurn();
+                    ((GameMainJPanel)mainJFrame.getCardsLayoutPanel().getComponent(i)).getDrawButton().setEnabled(true);
                 }
             }
+        }
+        else
+            mainJFrame.setSize(200,250);
     }
     
 }

@@ -45,8 +45,9 @@ public class EaselJPanel extends JPanel{
     }
     
     public void Reset() {
+        ImageIcon img  = Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/0.png"),50,50);
         for(int i = 0;i < jlabels.length; i++){
-            jlabels[i].setIcon(Resize.ImageResize(new ImageIcon("build/classes/image Scrabble/0.png"),50,50));
+            jlabels[i].setIcon(img);
         } 
     }
 }

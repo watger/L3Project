@@ -21,10 +21,9 @@ public class GameOptionJPanel extends JPanel{
     private JButton menuButton, gameStartButton;
     private NameSelectionJPanel tabOfNameSelectionJPanel[] = new NameSelectionJPanel [4];
     
-    public GameOptionJPanel(Party party,JPanel cards) {
+    public GameOptionJPanel(Party party) {
         super();
         
-        this.cards = cards;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         for(int i = 0 ;i < tabOfNameSelectionJPanel.length; i++)
@@ -34,9 +33,9 @@ public class GameOptionJPanel extends JPanel{
         }
         
         menuButton = new JButton("MENU");
-        menuButton.addActionListener(new ChangeCardActionListener(cards,"MenuJPanel"));
+        menuButton.addActionListener(new ChangeCardActionListener(party.getMainJFrame(),"MenuJPanel"));
         gameStartButton = new JButton("START");
-        gameStartButton.addActionListener(new ChangeCardActionListener(cards,"GameMainJPanel"));
+        gameStartButton.addActionListener(new ChangeCardActionListener(party.getMainJFrame(),"GameMainJPanel"));
         gameStartButton.addActionListener(new NewPartyActionListener(this,party));
         
         jpanelBoutton = new JPanel();

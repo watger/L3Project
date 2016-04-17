@@ -35,10 +35,10 @@ public class MainJFrame extends JFrame{
         //this.setLayout( new FlowLayout(FlowLayout.CENTER));
         cardsLayoutPanel = new JPanel(new CardLayout());
         
-        menuJPanel = new MenuJPanel(cardsLayoutPanel);
-        ruleJPanel = new RuleJPanel(cardsLayoutPanel);
-        gameOptionJPanel = new GameOptionJPanel(party,cardsLayoutPanel);
-        gameMainJPanel = new GameMainJPanel(party,cardsLayoutPanel);
+        menuJPanel = new MenuJPanel(party);
+        ruleJPanel = new RuleJPanel(party);
+        gameOptionJPanel = new GameOptionJPanel(party);
+        gameMainJPanel = new GameMainJPanel(party);
         
         cardsLayoutPanel.add(menuJPanel,"MenuJPanel");
         cardsLayoutPanel.add(ruleJPanel,"RuleJPanel");
@@ -46,7 +46,12 @@ public class MainJFrame extends JFrame{
         cardsLayoutPanel.add(gameMainJPanel,"GameMainJPanel");
         
         this.add(cardsLayoutPanel);
+        this.setSize(200,300);
   }
+
+    public JPanel getCardsLayoutPanel() {
+        return cardsLayoutPanel;
+    }
     
      public MenuJPanel getMenuJPanel() {
         return menuJPanel;

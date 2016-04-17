@@ -36,8 +36,34 @@ public class Tray {
     }
     
     public Boolean setTokenIsPossible(Party party, int i, int j) {
-        if (tableFrame[i][j].getToken() == null && tableFrame[i][j].isFree() && ((xmin == i && ymin == j)||(xmax == i && ymax == j)||(xmin == xmax && ymin == ymax)))
-            return true;
+        if (tableFrame[i][j].getToken() == null && tableFrame[i][j].isFree()) {
+            if (((xmin == i && ymin == j)||(xmax == i && ymax == j)||xmin == -1))
+                return true;
+            if((xmin == xmax && ymin == ymax)) {
+                if(xmin == i) {
+                    if(j < ymin)
+                        for(int n = j+1; n < ymin; n++)
+                            if(tableFrame[i][n].getToken() == null)
+                                return false;
+                    if(j > ymin)
+                        for(int n = j-1; n > ymin; n--)
+                            if(tableFrame[i][n].getToken() == null) 
+                                return false;
+                    return true;
+                }
+                else if(ymin == j) {
+                    if(i < xmin)
+                        for(int n = i+1; n < xmin; n++)
+                            if(tableFrame[n][j].getToken() == null)
+                                return false;
+                    if(i > xmin)
+                        for(int n = i-1; n > xmin; n--)
+                            if(tableFrame[n][j].getToken() == null)
+                                return false;
+                    return true;
+                }
+            }
+        }
         return false;
     }
     
@@ -73,6 +99,11 @@ public class Tray {
                     ymin = j - 1;
                     ymax += 1;
                 }
+                
+                if(ymax < tableFrame[xmin].length && tableFrame[xmin][ymax].getToken() != null)
+                    UpdateXYMaxMin(xmin,ymax);
+                if(ymin > 0 && tableFrame[xmin][ymin].getToken() != null)
+                    UpdateXYMaxMin(xmin,ymin);
             }
             else if(ymin == j)
             {
@@ -86,6 +117,11 @@ public class Tray {
                     xmin = i - 1;
                     xmax += 1;
                 }
+                
+                if(xmax < tableFrame.length && tableFrame[xmax][ymin].getToken() != null)
+                    UpdateXYMaxMin(xmax,ymin);
+                if(xmin > 0 && tableFrame[xmin][ymin].getToken() != null)
+                    UpdateXYMaxMin(xmin,ymin);
             }
         }
         else {
@@ -96,10 +132,10 @@ public class Tray {
                 else if(ymin == j) 
                     ymin = j - 1;
                 
-                //if(tableFrame[xmin][ymax] != null)
-                  //  UpdateXYMaxMin(xmin,ymax);
-                //if(tableFrame[xmin][ymin] != null)
-                  //  UpdateXYMaxMin(xmin,ymin);
+                if(ymax < tableFrame[xmin].length && tableFrame[xmin][ymax].getToken() != null)
+                    UpdateXYMaxMin(xmin,ymax);
+                if(ymin > 0 && tableFrame[xmin][ymin].getToken() != null)
+                    UpdateXYMaxMin(xmin,ymin);
             }
             else if(ymin == ymax)
             {
@@ -108,13 +144,12 @@ public class Tray {
                 else if(xmin == i) 
                     xmin = i - 1;
                 
-                //if(tableFrame[xmin][ymin] != null)
-                  //  UpdateXYMaxMin(xmin,ymin);
-                //if(tableFrame[xmax][ymin] != null)
-                  //  UpdateXYMaxMin(xmax,ymin);
+                if(xmax < tableFrame.length && tableFrame[xmax][ymin].getToken() != null)
+                    UpdateXYMaxMin(xmax,ymin);
+                if(xmin > 0 && tableFrame[xmin][ymin].getToken() != null)
+                    UpdateXYMaxMin(xmin,ymin);
             }
         }
-        System.out.println("xmax:"+xmax+" xmin:"+xmin+" ymax:"+ymax+" ymin:"+ymin);
     }
     
     public void ResetXYMaxMin() {

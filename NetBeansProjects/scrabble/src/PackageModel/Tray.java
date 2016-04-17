@@ -42,10 +42,14 @@ public class Tray {
     }
     
     public void UpdateFramesFree( int i, int j) {
-        tableFrame[i+1][j].setFree(true);
-        tableFrame[i-1][j].setFree(true);
-        tableFrame[i][j+1].setFree(true);
-        tableFrame[i][j-1].setFree(true);
+        if(i != tableFrame.length-1)
+            tableFrame[i+1][j].setFree(true);
+        if(i != 0)
+            tableFrame[i-1][j].setFree(true);
+        if(j != tableFrame[0].length-1)
+            tableFrame[i][j+1].setFree(true);
+        if(j != 0)
+            tableFrame[i][j-1].setFree(true);
         UpdateXYMaxMin(i,j);
     }
     

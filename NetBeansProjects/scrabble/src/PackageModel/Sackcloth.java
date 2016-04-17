@@ -69,10 +69,10 @@ public class Sackcloth {
         int index = (int) (Math.random() * listToken.size());
         Token bufferToken = null;
         
-        try {
+        if(!listToken.isEmpty()) {
             bufferToken = listToken.get(index);
             listToken.remove(index);
-        }catch(Exception e) {}
+        }
         
         return bufferToken;
     }

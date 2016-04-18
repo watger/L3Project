@@ -6,6 +6,8 @@
 package PackageModel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Tray { 
     private Frame[][] tableFrame = new Frame[15][15];
-    private int xmax,xmin,ymax,ymin;
+    private int xmax,xmin,ymax,ymin,yFirstTokenPose,xFirstTokenPose,score;
     
     public Tray(Frame[][] tableFrame) {
         this.tableFrame = tableFrame;
@@ -85,6 +87,9 @@ public class Tray {
             xmax = i;
             ymin = j;
             ymax = j;
+            yFirstTokenPose = i;
+            xFirstTokenPose = j;
+            score = 0;
         }
         else if(xmin == xmax && ymin == ymax) {
             if(xmin == i)
@@ -196,11 +201,172 @@ public class Tray {
     
    //get width and height
 
-    public ArrayList<String> GetWords() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<String> GetWordsAndCalculScore() {
+        int i = yFirstTokenPose, j = xFirstTokenPose, k;
+        List<String> l = new ArrayList();
+        String strTemp = new String();
+        
+        if(xmax == xmin) {
+            strTemp = "";
+            k = 0;
+            while(tableFrame[i][j + k].getToken() != null) {
+                strTemp = strTemp+tableFrame[i][j+k].getToken().getCharacter();
+                
+                if(tableFrame[i][j+k].getToken().isSelect()) {
+                    int n = 1,a = 0,scoreTemporaire =0;
+                    //////////////////////////////////////
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    //////////////////////////////////////
+                    String strTemp2 = ""+tableFrame[i][j+k].getToken().getCharacter();
+                    while(tableFrame[i+n][j+k].getToken() != null) {
+                        strTemp2 = strTemp2+tableFrame[i+n][j+k].getToken().getCharacter();
+                        n++;
+                    }
+            
+                    n = 1;
+                    while(tableFrame[i-n][j+k].getToken() != null) {
+                        strTemp2 = tableFrame[i-n][j+k].getToken().getCharacter()+strTemp2;
+                        n++;
+                    }
+                    if(strTemp2.length()>1)
+                        l.add(strTemp2);
+                }
+                
+                k++;
+            }
+            k = 1;
+            while(tableFrame[i][j-k].getToken() != null) {
+                strTemp = tableFrame[i][j-k].getToken().getCharacter()+strTemp;
+                
+                if(tableFrame[i][j-k].getToken().isSelect()) {
+                    int n = 1;
+                    String strTemp2 = ""+tableFrame[i][j-k].getToken().getCharacter();
+                    while(tableFrame[i+n][j-k].getToken() != null) {
+                        strTemp2 = strTemp2+tableFrame[i+n][j-k].getToken().getCharacter();
+                        n++;
+                    }
+            
+                    n = 1;
+                    while(tableFrame[i-n][j-k].getToken() != null) {
+                        strTemp2 = tableFrame[i-n][j-k].getToken().getCharacter()+strTemp2;
+                        n++;
+                    }
+                    if(strTemp2.length()>1)
+                    l.add(strTemp2);
+                }
+                
+                k++;
+            }
+            if(strTemp.length()>1)
+                l.add(strTemp);
+        }
+        else {
+            strTemp = "";
+            k=0;
+            while(tableFrame[i+k][j].getToken() != null) {
+                strTemp = strTemp+tableFrame[i+k][j].getToken().getCharacter();
+                
+                if(tableFrame[i+k][j].getToken().isSelect()) {
+                    int n = 1;
+                    String strTemp2 = ""+tableFrame[i+k][j].getToken().getCharacter();
+                    while(tableFrame[i+k][j+n].getToken() != null) {
+                        strTemp2 = strTemp2+tableFrame[i+k][j+n].getToken().getCharacter();
+                        n++;
+                    }
+            
+                    n = 1;
+                    while(tableFrame[i+k][j-n].getToken() != null) {
+                        strTemp2 = tableFrame[i+k][j-n].getToken().getCharacter()+strTemp2;
+                        n++;
+                    }
+                    if(strTemp2.length()>1)
+                    l.add(strTemp2);
+                }
+                
+                k++;
+            }
+            k = 1;
+            while(tableFrame[i-k][j].getToken() != null) {
+                strTemp = tableFrame[i-k][j].getToken().getCharacter()+strTemp;
+                
+                if(tableFrame[i-k][j].getToken().isSelect()) {
+                    int n = 1;
+                    String strTemp2 = ""+tableFrame[i-k][j].getToken().getCharacter();
+                    while(tableFrame[i-k][j+n].getToken() != null) {
+                        strTemp2 = strTemp2+tableFrame[i-k][j+n].getToken().getCharacter();
+                        n++;
+                    }
+            
+                    n = 1;
+                    while(tableFrame[i-k][j-n].getToken() != null) {
+                        strTemp2 = tableFrame[i-k][j-n].getToken().getCharacter()+strTemp2;
+                        n++;
+                    }
+                    if(strTemp2.length()>1)
+                    l.add(strTemp2);
+                }
+                
+                k++;
+            }
+            if(strTemp.length()>1)
+                l.add(strTemp);
+             
+        }
+            
+       /* while() {
+            
+            strTemp = ""+tableFrame[i][j].getToken().getCharacter();
+            int k = 1;
+            while(tableFrame[i][j + k].getToken() != null) {
+                strTemp = strTemp+tableFrame[i][j+k].getToken().getCharacter();
+                k++;
+            }
+            k = 1;
+            while(tableFrame[i][j-k].getToken() != null) {
+                strTemp = tableFrame[i][j-k].getToken().getCharacter()+strTemp;
+                k++;
+            }
+            if(strTemp.length()>1)
+                l.add(strTemp);
+            
+            strTemp = ""+tableFrame[i][j].getToken().getCharacter();
+            k=1;
+            while(tableFrame[i+k][j].getToken() != null) {
+                strTemp = strTemp+tableFrame[i+k][j].getToken().getCharacter();
+                k++;
+            }
+            k = 1;
+            while(tableFrame[i-k][j].getToken() != null) {
+                strTemp = tableFrame[i-k][j].getToken().getCharacter()+strTemp;
+                k++;
+            }
+            if(strTemp.length()>1)
+                l.add(strTemp);
+        }*/
+           System.out.println(l.toString());
+        return null;
     }
     
-    public int GetScoreWords() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean VerifWords(List<String> l) {
+        Boolean b = false;
+        for(Iterator it = l.iterator();it.hasNext();) {
+            if(true)//
+                b = true;
+        }
+        return b;
+    }
+    
+    public int getScoreWords() {
+       if(VerifWords(GetWordsAndCalculScore()))
+           return score;
+        return 0;
     }
 }

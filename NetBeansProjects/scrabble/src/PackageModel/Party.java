@@ -126,8 +126,7 @@ public class Party {
     }
     
     public void NextPlayer() {
-        //tray.GetScoreWords();
-        
+        listOfPlayer.get(playerActual).setScore(listOfPlayer.get(playerActual).getScore() + tray.getScoreWords());
         listOfPlayer.get(playerActual).getEasel().ChangeToken(sackcloth);
         listOfPlayer.get(playerActual).setDraw(false);
         listOfPlayer.get(playerActual).setPlay(false);

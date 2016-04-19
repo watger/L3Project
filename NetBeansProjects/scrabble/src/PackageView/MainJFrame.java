@@ -9,6 +9,7 @@ import PackageModel.Frame;
 import PackageModel.Party;
 import PackageModel.Tray;
 import java.awt.CardLayout;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -23,7 +24,7 @@ public class MainJFrame extends JFrame{
     private GameOptionJPanel gameOptionJPanel;
     private GameMainJPanel gameMainJPanel;
 
-    public MainJFrame() {
+    public MainJFrame() throws IOException {
         super();
         Party party = new Party(this);
         

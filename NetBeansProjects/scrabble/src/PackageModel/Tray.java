@@ -16,10 +16,12 @@ import java.util.List;
 public class Tray { 
     private Frame[][] tableFrame = new Frame[15][15];
     private int xmax,xmin,ymax,ymin,yFirstTokenPose,xFirstTokenPose,score;
+    private ArrayList lSelect;
     
     public Tray(Frame[][] tableFrame) {
         this.tableFrame = tableFrame;
         ResetXYMaxMin();
+        lSelect = new ArrayList();
     }
     
     public Boolean setTokenFrames (Party party, int i, int j) {
@@ -29,6 +31,7 @@ public class Tray {
                 {
                     tableFrame[i][j].setToken(party.getPlayerActual().getEasel().GetToken(n));
                     party.getPlayerActual().getEasel().setToken(n,null);
+                    lSelect.add(tableFrame[i][j]);
                     UpdateFramesFree(i,j);
   
                     return true;
@@ -206,31 +209,23 @@ public class Tray {
         List<String> l = new ArrayList();
         String strTemp = new String();
         
-        if(xmax == xmin) {
+        if(xmax == -1);
+        else if(xmax == xmin ) {
             strTemp = "";
             k = 0;
             while(tableFrame[i][j + k].getToken() != null) {
                 strTemp = strTemp+tableFrame[i][j+k].getToken().getCharacter();
+                int n = 1;
                 
                 if(tableFrame[i][j+k].getToken().isSelect()) {
-                    int n = 1,a = 0,scoreTemporaire =0;
-                    //////////////////////////////////////
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    //////////////////////////////////////
                     String strTemp2 = ""+tableFrame[i][j+k].getToken().getCharacter();
                     while(tableFrame[i+n][j+k].getToken() != null) {
                         strTemp2 = strTemp2+tableFrame[i+n][j+k].getToken().getCharacter();
+                        
                         n++;
                     }
-            
+
                     n = 1;
                     while(tableFrame[i-n][j+k].getToken() != null) {
                         strTemp2 = tableFrame[i-n][j+k].getToken().getCharacter()+strTemp2;
@@ -239,9 +234,9 @@ public class Tray {
                     if(strTemp2.length()>1)
                         l.add(strTemp2);
                 }
-                
                 k++;
             }
+            
             k = 1;
             while(tableFrame[i][j-k].getToken() != null) {
                 strTemp = tableFrame[i][j-k].getToken().getCharacter()+strTemp;
@@ -320,53 +315,55 @@ public class Tray {
                 l.add(strTemp);
              
         }
-            
-       /* while() {
-            
-            strTemp = ""+tableFrame[i][j].getToken().getCharacter();
-            int k = 1;
-            while(tableFrame[i][j + k].getToken() != null) {
-                strTemp = strTemp+tableFrame[i][j+k].getToken().getCharacter();
-                k++;
-            }
-            k = 1;
-            while(tableFrame[i][j-k].getToken() != null) {
-                strTemp = tableFrame[i][j-k].getToken().getCharacter()+strTemp;
-                k++;
-            }
-            if(strTemp.length()>1)
-                l.add(strTemp);
-            
-            strTemp = ""+tableFrame[i][j].getToken().getCharacter();
-            k=1;
-            while(tableFrame[i+k][j].getToken() != null) {
-                strTemp = strTemp+tableFrame[i+k][j].getToken().getCharacter();
-                k++;
-            }
-            k = 1;
-            while(tableFrame[i-k][j].getToken() != null) {
-                strTemp = tableFrame[i-k][j].getToken().getCharacter()+strTemp;
-                k++;
-            }
-            if(strTemp.length()>1)
-                l.add(strTemp);
-        }*/
-           System.out.println(l.toString());
-        return null;
+        System.out.println(l.toString());
+        return l;
     }
     
-    public Boolean VerifWords(List<String> l) {
-        Boolean b = false;
-        for(Iterator it = l.iterator();it.hasNext();) {
-            if(true)//
-                b = true;
+    public String replace(String str, int index, char replace){     
+        if(str==null){
+            return str;
+        }else if(index<0 || index>=str.length()){
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        chars[index] = replace;
+        return String.valueOf(chars);       
+    }  
+    
+    public Boolean VerifWords(List<String> l,Party party) {
+        Boolean b = true;
+        System.out.println(l.size());
+        for(int i = 0 ; i < l.size(); i++) {
+            for(int n = 0; n <l.get(i).length();n++)
+                if(l.get(i).charAt(n) == '#') {
+                    b = false;
+                    for(char c = 'a'; c <= 'z'; c++)
+                        if(party.getDictionary().ContainWords(replace(l.get(i),n,c)))
+                            b = true;
+                }
+                    
+            if(!party.getDictionary().ContainWords(l.get(i)))
+                b = false;
         }
         return b;
     }
     
+    public void ifWordsFalse (Boolean b,Party party){
+        if(!b) {
+            int i = 0;
+            for(int n = 0; n <party.getPlayerActual().getEasel().getEasellenght() && i < lSelect.size();n++ )
+                if(party.getPlayerActual().getEasel().GetToken(n) == null) {
+                    party.getPlayerActual().getEasel().setToken(n,((Frame)lSelect.get(i)).getToken());
+                    party.getPlayerActual().getEasel().GetToken(n).setSelect(false);
+                    ((Frame)lSelect.get(i)).setToken(null);
+                    i++;
+                }
+        }
+        
+        lSelect.clear();
+    }
+    
     public int getScoreWords() {
-       if(VerifWords(GetWordsAndCalculScore()))
-           return score;
         return 0;
     }
 }

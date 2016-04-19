@@ -30,8 +30,8 @@ public class Easel {
         ArrayList<Token> temporaryListToken = new ArrayList<Token>();
         
         for(int i = 0; i < tableToken.length; i++) {
-            if(tableToken[i] == null)
-                tableToken[i] = sackcloth.DrawToken(); 
+            if(tableToken[i] == null){System.out.println("fuck");
+                tableToken[i] = sackcloth.DrawToken(); }
             else if(tableToken[i].isSelect()) {
                 tableToken[i].setSelect(false);
                 temporaryListToken.add(tableToken[i]);

@@ -6,6 +6,7 @@
 package PackageModel;
 
 import PackageView.MainJFrame;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,11 @@ public class Party {
     private Tray tray;
     private Frame[][] frameTab;
     private Sackcloth sackcloth;
+    private Dictionary dictionary; 
     
     
-    public Party(MainJFrame mainJFrame) {
+    public Party(MainJFrame mainJFrame) throws IOException {
+        dictionary = new Dictionary();
          Frame[][] frameTab = {
                 {new Frame(4),new Frame(0),new Frame(0),
                     new Frame(1),new Frame(0),new Frame(0),
@@ -126,10 +129,11 @@ public class Party {
     }
     
     public void NextPlayer() {
-        listOfPlayer.get(playerActual).setScore(listOfPlayer.get(playerActual).getScore() + tray.getScoreWords());
-        listOfPlayer.get(playerActual).getEasel().ChangeToken(sackcloth);
-        listOfPlayer.get(playerActual).setDraw(false);
-        listOfPlayer.get(playerActual).setPlay(false);
+        tray.ifWordsFalse(tray.VerifWords(tray.GetWordsAndCalculScore(), this),this);
+        
+        getPlayerActual().getEasel().ChangeToken(sackcloth);
+        getPlayerActual().setDraw(false);
+        getPlayerActual().setPlay(false);
         if(playerActual< listOfPlayer.size()-1)
             playerActual++;
         else
@@ -140,6 +144,10 @@ public class Party {
         
         mainJFrame.getGameMainJPanel().getTrayJPanel().UpdateIconJLabel();
         mainJFrame.getGameMainJPanel().getEaselJPanel().SetAllIconJLabel(listOfPlayer.get(playerActual).getEasel());
+    }
+
+    public Dictionary getDictionary() {
+        return dictionary;
     }
 
     public String getNextPlayerName() {
